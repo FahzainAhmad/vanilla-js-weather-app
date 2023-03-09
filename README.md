@@ -14,11 +14,11 @@ Live view : <a href="https://ndr4szqanmqia47zanlvcq.on.drv.tw/Rex%20Weather%20Ap
 
 <h2>Getting Started - Steps 📲</h2>
 
-<ul>
-  <li>1. Download and extract the files.</li>
-  <li>2. Add your API key from OpenWeatherAPI for free</li>
-  <li>3. Run the index.html</li>
-</ul>
+<ol>
+  <li> Download and extract the files.</li>
+  <li> Add your API key from OpenWeatherAPI for free</li>
+  <li> Run the index.html</li>
+</ol>
 
 <h2>Requirements 📋</h2>
 
