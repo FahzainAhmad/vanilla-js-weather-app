@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rex Weather App</title>
+  <style>
+    * {
+      font-family: Helvetica, sans-serif;
+    }
+
+    .opt_icon {
+      filter: invert(100%);
+      rotate: 90Deg;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .opt_btn {
+      border: none;
+      background-color: transparent;
+      padding: 2px;
+      width: 100%;
+      border-radius: 20px;
+    }
+
+    .top {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+      margin-top: 20px;
+    }
+
+    .location {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px;
+      border: 1px solid blue;
+      border-radius: 40px;
+      background-color: #75a0ff;
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+
+    .main {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      border-radius: 50px;
+      background: linear-gradient(#52a6ff, #0050FF);
+      box-shadow: 0px 10px 0px #0046df;
+      height: 95vh;
+      align-items: center;
+    }
+
+    .place {
+      color: white;
+      margin-left: 5px;
+    }
+
+    .temp {
+      color: white;
+      font-size: 7rem;
+      margin-top: 2%;
+      text-align: center;
+      margin-bottom: 1%;
+      filter: drop-shadow(0px 0px 10px rgb(255, 255, 255));
+    }
+
+    .stuff-holder {
+      display: flex;
+      flex-direction: column;
+      color: white;
+      align-items: center;
+    }
+
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 20px;
+      display: none;
+      background-color: transparent;
+      backdrop-filter: blur(5px);
+      border: 1px solid white;
+      border-radius: 20px;
+    }
+
+    #popup h2 {
+      margin-top: 0;
+    }
+
+    #popupBtn {
+      padding: 10px;
+    }
+
+    #closeBtn {
+      display: block;
+      margin-top: 10px;
+      padding: 5px 10px;
+      background-color: #ccc;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    const key = '6ef697b1196f598fd6ca9c62e3a97f67';
+    if (key == '') document.getElementById('temp').innerHTML = 'No API Key Found!';
+
+    function weatherBallon(cityID) {
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityID + '&appid=' + key)
+        .then(function (resp) { return resp.json() })
+        .then(function (data) {
+          drawWeather(data);
+        })
+        .catch(function (err) {
+          console.log(err);
+        });
+    }
+
+    function weatherBallon2() {
+      if (document.getElementById("cityName1").value == '') {
+        var cityN = document.getElementById("cityName2").value;
+      }
+      else {
+        var cityN = document.getElementById("cityName1").value;
+      }
+
+      fetch('https://api.openweathermap.org/data/2.5/weather?q=' + cityN + '&appid=' + key)
+        .then(function (resp) { return resp.json() }) // Convert data to json
+        .then(function (data) {
+          drawWeather(data);
+        })
+        .catch(function () {
+          console.log("Poppat");
+        });
+    }
+
+    function drawWeather(d) {
+      var celcius = Math.round(parseFloat(d.main.temp) - 273.15);
+      var fahrenheit = Math.round(((parseFloat(d.main.temp) - 273.15) * 1.8) + 32);
+      var icon = d.weather[0].icon;
+      var humidity = d.main.humidity;
+      var pressure = d.main.pressure;
+      var wind_speed = d.wind.speed;
+      var country_symbol = d.sys.country;
+      var description = d.weather[0].description;
+      var despstr = description.toString();
+      var capdesp = despstr.toUpperCase();
+      var main_description = d.weather[0].main;
+
+      document.getElementById('location').innerHTML = d.name;
+      document.getElementById('temperature').innerHTML = celcius + "°C";
+      document.getElementById('main_desp').innerHTML = country_symbol;
+      document.getElementById('woosh').innerHTML = wind_speed + "M/s";
+      document.getElementById('desp').innerHTML = capdesp;
+      document.getElementById('humid').innerHTML = humidity + "%";
+      document.getElementById('press').innerHTML = pressure + "hPa";
+      document.getElementById('desp').innerHTML = capdesp;
+      console.log(icon);
+      switch (icon) {
+        case "01d":
+          document.getElementById("description_image").src = "clear_sky.png";
+          document.getElementById("description_image2").src = "clear_sky.png";
+          break;
+        case "01n":
+          document.getElementById("description_image").src = "clear_sky_night.png";
+          document.getElementById("description_image2").src = "clear_sky_night.png";
+          break;
+        case "02n":
+        case "02d":
+          document.getElementById("description_image").src = "few_clouds.png";
+          document.getElementById("description_image2").src = "few_clouds.png";
+          break;
+        case "03n":
+        case "03d":
+          document.getElementById("description_image").src = "scattered_clouds.png";
+          document.getElementById("description_image2").src = "scattered_clouds.png";
+          break;
+        case "04n":
+        case "04d":
+          document.getElementById("description_image").src = "broken.png";
+          document.getElementById("description_image2").src = "broken.png";
+          break;
+        case "09n":
+        case "09d":
+          document.getElementById("description_image").src = "rain.png";
+          document.getElementById("description_image2").src = "rain.png";
+          break;
+        case "10n":
+        case "10d":
+          document.getElementById("description_image").src = "heavy_rain.png";
+          document.getElementById("description_image2").src = "heavy_rain.png";
+          break;
+        case "50n":
+        case "50d":
+          document.getElementById("description_image").src = "haze.png";
+          document.getElementById("description_image2").src = "haze.png";
+          break;
+        case "11n":
+        case "11d":
+          document.getElementById("description_image").src = "thunderstorm.png";
+          document.getElementById("description_image2").src = "thunderstorm.png";
+          break;
+        case "13n":
+        case "13d":
+          document.getElementById("description_image").src = "snowflake.png";
+          document.getElementById("description_image2").src = "snowflake.png";
+          break;
+        case "15n":
+        case "15d":
+          document.getElementById("description_image").src = "mist.png";
+          document.getElementById("description_image2").src = "mist.png";
+          break;
+        default:
+          document.getElementById("description_image").src = "unknown.png";
+          document.getElementById("description_image2").src = "unknown.png";
+          break;
+      }
+    }
+    window.onload = function () {
+      weatherBallon("Ahmedabad");
+    }
+  </script>
+</head>
+
+<body style="background-color: #151515">
+  <div class="main">
+    <div class="top">
+      <button class="opt_btn" id="popupBtn">
+        <img src="options.png" alt="" class="opt_icon" style="transform: scaleY(-1);">
+      </button>
+      <div class="location" onclick>
+        <img src="location.png" alt="" class="opt_icon" style="rotate: 0Deg;">
+        <span class="place" id="location"></span>
+      </div>
+      <button class="opt_btn" onclick="openFullscreen();">
+        <img src="fscreen.png" alt="" class="opt_icon" />
+      </button>
+    </div>
+    <p id="main_desp" class="temp" style="font-size: 1.4rem;margin-top:20px;margin-left: 0%;">Loading...</p>
+    <img src="unknown.png" id="description_image" alt=""
+      style="margin-top:20px;margin-bottom:20px;width:75%;align-self: center;filter: drop-shadow(10px 10px 30px #00438a);">
+    <p class="temp" id="temperature">🔃</p>
+    <p id="desp" class="temp" style="font-size: 1.4rem;margin-bottom: 30px;margin-left: 0%;">Loading...</p>
+    <div class="top" style="justify-content: space-around;">
+      <div class="stuff-holder">
+        <img src="wind.png" alt="" class="opt_icon" style="rotate: 0Deg;filter: none;width: 3rem;height: 3rem;" />
+        <span style="margin-top: 5px;" id="woosh">Loading...</span>
+      </div>
+      <div class="stuff-holder">
+        <img src="water.png" alt="" class="opt_icon" style="rotate: 0Deg;filter: none;width: 3rem;height: 3rem;" />
+        <span style="margin-top: 5px;" id="humid">Loading...</span>
+      </div>
+      <div class="stuff-holder">
+        <img src="atmos.png" alt="" class="opt_icon" style="rotate: 0Deg;filter: none;width: 3rem;height: 3rem;" />
+        <span style="margin-top: 5px;" id="press">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="popup" class="pop">
+    <h2 style="color:white;">Type City</h2>
+    <input type="text" id="city_name" autocomplete="off"
+      style="height: 30px;width: 100%;font-size: 1rem;border-radius: 10px;background-color: #151515; color: white;">
+    <button id="closeBtn" style="padding: 10px;color:white;background-color: #0050FF;border-radius: 10px;"
+      onclick="weatherBallon(document.getElementById('city_name').value);">Go!</button>
+  </div>
+  <script>
+    var elem = document.documentElement;
+    function openFullscreen() {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      }
+    }
+  </script>
+  <script>
+    const popup = document.getElementById('popup');
+    const popupBtn = document.getElementById('popupBtn');
+    const closeBtn = document.getElementById('closeBtn');
+
+    popupBtn.addEventListener('click', () => {
+      popup.style.display = 'block';
+    });
+
+    closeBtn.addEventListener('click', () => {
+      popup.style.display = 'none';
+    });
+
+  </script>
+</body>
+</body>
+
+</html>
