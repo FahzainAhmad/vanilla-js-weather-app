@@ -1,7 +1,6 @@
 <h1> Rex Weather App</h1>
 
-Live view : <a href="https://ndr4szqanmqia47zanlvcq.on.drv.tw/Rex%20Weather%20App/">Click here to View Site!</a>
-
+Live view : <a href="https://ndr4szqanmqia47zanlvcq.on.drv.tw/Rex%20Weather%20App/">Click here to View Site!</a> (Please be patient as it may take some time to load)
 <h2>Features 🚀</h2>
 
 <ul>
