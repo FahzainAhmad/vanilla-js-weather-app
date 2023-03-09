@@ -22,7 +22,7 @@ Live view : <a href="https://ndr4szqanmqia47zanlvcq.on.drv.tw/Rex%20Weather%20Ap
 
 <h2>Requirements 📋</h2>
 
-<p><strong>Internet is required as I have used CDN links</strong></p>
+<p><strong>Internet is required as I have used OpenWeatherAPI for weather data</strong></p>
 
 <h2>License 📜</h2>
 
