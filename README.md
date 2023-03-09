@@ -6,7 +6,7 @@ Live view : <a href="https://ndr4szqanmqia47zanlvcq.on.drv.tw/Rex%20Weather%20Ap
 <ul>
   <li>Minimalistic and modern design of the page</li>
   <li>Clean and neat interface</li>
-  <li>100% responsive design</li>
+  <li>100% responsive design using CSS Media queries</li>
   <li>I have used HTML, CSS and Vanilla JS to challenge myself</li>
   <li>RealTime Data using Fetch API</li>
   <li>Mobile first site</li>
